@@ -6,10 +6,13 @@ from django.contrib.auth import login
 from .models import Book, Library
 
 # Function-based view
-def list_books(request):
-    books = Book.objects.select_related('author')
-    return render(request, 'relationship_app/list_books.html', {'books': books})
+from django.shortcuts import render
+from .models import Book
 
+# Function-based view
+def list_books(request):
+    books = Book.objects.all()
+    return render(request, 'relationship_app/list_books.html', {'books': books})
 
 # Class-based view
 class LibraryDetailView(DetailView):

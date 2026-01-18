@@ -1,9 +1,7 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render
 from django.views.generic import DetailView
-from django.contrib.auth.decorators import permission_required, user_passes_test
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
-from .models import Book, Library
+from .models import Book
+from .models import Library
 
 # Function-based view
 from django.shortcuts import render

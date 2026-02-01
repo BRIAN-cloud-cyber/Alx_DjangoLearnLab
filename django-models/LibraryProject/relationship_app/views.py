@@ -7,6 +7,8 @@ from .models import Library
 # Function-based view
 from django.shortcuts import render
 from .models import Book
+from . import forms
+#from django.contrib import messages
 
 # Function-based view
 def list_books(request):
@@ -23,11 +25,14 @@ class LibraryDetailView(DetailView):
  
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = forms.UserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('list_books')
+            #messages.success(request, 'Registration successful.')
+            form.save()
+            return render(request, 'relationship_app/registration_success.html')
     else:
-        form = UserCreationForm()
+
+        form = forms.UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
+
+     

@@ -15,10 +15,9 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login'),
     path('profile/', views.profile, name='profile'),
+#comments routing
 
-     # Comment URLs
-    path('posts/<int:post_id>/comments/new/', views.add_comment, name='add-comment'),
-    path('comments/<int:pk>/edit/', views.edit_comment, name='edit-comment'),
-    path('comments/<int:pk>/delete/', views.delete_comment, name='delete-comment'),
-
+    path('posts/<int:post_id>/comments/new/', views.CommentCreateView.as_view(), name='comment-create'),
+    path('comments/<int:pk>/edit/', views.CommentUpdateView.as_view(), name='comment-update'),
+    path('comments/<int:pk>/delete/', views.CommentDeleteView.as_view(), name='comment-delete'),
 ]

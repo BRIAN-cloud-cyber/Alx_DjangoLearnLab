@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Blog Posts{% endblock %}
+
+{% block content %}
+<h2>Blog Posts</h2>
+
+{% for post in posts %}
+<div class="post-snippet">
+    <h3><a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a></h3>
+    <p>By {{ post.author.username }} | {{ post.created_at|date:"M d, Y" }}</p>
+    <p>{{ post.content|truncatechars:150 }}</p>
+    <a href="{% url 'post-detail' post.pk %}">Read more</a>
+</div>
+<hr>
+{% empty %}
+<p>No posts yet.</p>
+{% endfor %}
+
+{% endblock %}

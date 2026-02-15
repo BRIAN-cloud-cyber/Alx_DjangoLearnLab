@@ -9,7 +9,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post , Comment
 from .forms import PostForm ,CommentForm
 from django.urls import reverse_lazy
-
+from django.db.models import Q
+from taggit.models import Tag
 
 # -----------------------------
 # Registration View
@@ -158,3 +159,20 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('post-detail', kwargs={'pk': self.object.post.pk})
+    
+def search_posts(request):
+    query = request.GET.get('q')
+    results = Post.objects.none()
+    if query:
+        results = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct()
+
+    return render(request, 'blog/search_results.html', {'results': results, 'query': query})
+
+def posts_by_tag(request, tag_slug):
+    tag = get_object_or_404(Tag, slug=tag_slug)
+    posts = Post.objects.filter(tags__slug=tag_slug)
+    return render(request, 'blog/tag_posts.html', {'tag': tag, 'posts': posts})

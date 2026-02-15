@@ -15,4 +15,10 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login'),
     path('profile/', views.profile, name='profile'),
+
+     # Comment URLs
+    path('posts/<int:post_id>/comments/new/', views.add_comment, name='add-comment'),
+    path('comments/<int:pk>/edit/', views.edit_comment, name='edit-comment'),
+    path('comments/<int:pk>/delete/', views.delete_comment, name='delete-comment'),
+
 ]

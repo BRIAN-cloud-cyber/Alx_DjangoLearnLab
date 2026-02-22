@@ -3,7 +3,7 @@ from rest_framework import generics,permissions
 from .models import Notification
 from .serializers import NotificationSerializer
 
-class NotificationList(generics.ListAPIView):
+class NotificationListView(generics.ListAPIView):
     serializer_class = NotificationSerializer
     permission_classes = [permissions.IsAuthenticated]
 

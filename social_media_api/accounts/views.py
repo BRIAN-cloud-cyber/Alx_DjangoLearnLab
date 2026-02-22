@@ -38,3 +38,4 @@ class ProfileView(generics.RetrieveAPIView):
             'profile_picture': user.profile_picture.url if user.profile_picture else None,
             'followers_count': user.followers.count(),
             'following_count': user.following.count(),})
+        

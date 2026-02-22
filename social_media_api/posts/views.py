@@ -73,7 +73,7 @@ class LikePostView(APIView):
     def post(self, request, pk):
         post = generics.get_object_or_404(Post, pk=pk)
 
-        like, created = Like.objects.get_or_create(
+        Like, created = Like.objects.get_or_create(
             user=request.user,
             post=post
         )

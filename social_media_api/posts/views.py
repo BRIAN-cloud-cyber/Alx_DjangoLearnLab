@@ -1,6 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, permissions,filters
-from .models import Post, comment
+from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
 
 class IsOwnerorReadOnly(permissions.BasePermission):
@@ -26,7 +26,7 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = comment.objects.all()
+    queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,IsOwnerorReadOnly]
      

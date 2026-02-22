@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import User
-
+from rest_framework.authtoken.models import Token
 class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
@@ -16,6 +16,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
             bio=validated_data.get('bio', ''),
             profile_picture=validated_data.get('profile_picture', None)
         )
+
+        Token.objects.create(user=user)
         return user
     
 class UserDetailSerializer(serializers.ModelSerializer):
@@ -25,3 +27,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'bio', 'profile_picture', 'followers_count', 'following_count']
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)
